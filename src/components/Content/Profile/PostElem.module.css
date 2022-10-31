@@ -1,0 +1,21 @@
+.item {
+    color:rgb(26, 17, 36);
+    display: grid;
+    grid-template-rows: 50px;
+    grid-template-columns: 50px 1fr;
+    grid-gap: 5px;
+    grid-template-areas:
+    "i p";   
+}
+
+.image {
+    grid-area: i;
+}
+
+.image img {
+    border-radius: 25px;
+}
+
+.post {
+    grid-area: p;
+}

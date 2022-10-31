@@ -17,28 +17,3 @@
   "h h"
   "n c";
 }
-
-.head {
-  background-color: rgb(97, 97, 214);
-  grid-area: h;
-}
-
-.head img {
-  height: 100%;
-}
-
-.content img {
-  width: 100%;
-}
-
-.nav {
-  background-color: rgb(185, 138, 230);
-  grid-area: n;
-
-}
-
-.content {
-  background-color: rgb(127, 98, 155);
-  grid-area: c;
-
-}
