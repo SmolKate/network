@@ -17,3 +17,9 @@
   "h h"
   "n c";
 }
+
+.app-wraper-content {
+  background-color: rgb(127, 98, 155);
+  grid-area: c;
+
+}

@@ -8,9 +8,10 @@ const PostElem = (props) => {
                 <img src='https://krasivosti.pro/uploads/posts/2021-07/1625891556_49-krasivosti-pro-p-kvadratnii-kot-koti-krasivo-foto-59.jpg'></img>
             </div>
             <div className = {s.post}>
-                Post #{props.num}
+                Post #{props.id}
                 {props.message}
                 <div>
+                <span>{props.likesCount}</span>
                     <button>Like</button>
                 </div>
             </div>
