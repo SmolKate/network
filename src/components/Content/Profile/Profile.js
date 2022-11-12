@@ -1,14 +1,14 @@
 import React from "react";
-import MyPosts from "./MyPosts";
-import UserInfo from "./UserInfo";
+import MyPosts from './MyPosts/MyPosts';
+import UserInfo from './UserInfo/UserInfo';
 import s from './Profile.module.css'
 
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <div className = {s.profile}>
             <UserInfo />
-            <MyPosts />
+            <MyPosts postsData={props.state.postsData}/>
         </div>
     )
 }

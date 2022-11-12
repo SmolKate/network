@@ -13,3 +13,7 @@
 .item a:focus {
     color: black;
 }
+
+.friends {
+    width: 100%;
+}

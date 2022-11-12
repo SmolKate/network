@@ -1,0 +1,12 @@
+.item {
+    padding: 5px;
+}
+
+.name {
+    text-align: center;
+}
+
+.image img {
+    border-radius: 25px;
+    width: 50px;
+}

@@ -1,17 +1,10 @@
 import React from "react";
 import s from './MyPosts.module.css'
-import PostElem from "./PostElem";
+import PostElem from './PostElem/PostElem';
 
-const MyPosts = () => {
+const MyPosts = (props) => {
 
-    let postsData = [
-        {id:1, message:'Hello!', likesCount:11},
-        {id:2, message:'Good morning!', likesCount:120},
-        {id:3, message:'How are you?', likesCount:6},
-        {id:4, message:'Hi, guys!', likesCount:54},
-    ]
-
-    let postsElements = postsData
+    let postsElements = props.postsData
         .map (p => <PostElem id={p.id} message={p.message} likesCount={p.likesCount} />)
 
     return (

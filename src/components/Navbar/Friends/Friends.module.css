@@ -1,0 +1,14 @@
+.friendsField {
+    background-color: rgb(185, 138, 230);
+    display: flex;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    
+  
+}
+
+.friendsComp {
+    background-color: rgb(185, 138, 230);
+    
+  
+}
