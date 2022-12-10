@@ -1,15 +1,8 @@
 import React from "react";
 import s from './UserInfo.module.css';
-import Preloader from "../../../../common/Preloader/Preloader";
-import ProfileStatus from './ProfileStatus'
 
-const UserInfo = (props) => {
-    if (!props.profile) {
-        return <div className={s.preloader}>
-            <Preloader />
-        </div>
-        
-    }
+const ProfileStatus = (props) => {
+  
 
     return (
         <div>
@@ -23,4 +16,4 @@ const UserInfo = (props) => {
     )
 }
 
-export default UserInfo;
+export default ProfileStatus;
