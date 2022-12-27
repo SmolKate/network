@@ -1,18 +1,13 @@
 import { profileAPI } from "../api/api";
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SET_PROFILE = 'SET_PROFILE';
+const ADD_POST = 'profile/ADD-POST';
+const SET_PROFILE = 'profile/SET_PROFILE';
+const SET_STATUS = 'profile/SET_STATUS';
 
 
-export const addPostActionCreator = () => ({type: ADD_POST})
-
-export const updateNewPostTextActionCreator = (text) => ({
-        type: UPDATE_NEW_POST_TEXT,
-        newText: text
-    })
-
+export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText})
 export const setProfile = (profile) => ({type: SET_PROFILE, profile})
+export const setStatus = (status) => ({type: SET_STATUS, status})
 
 let initialState = {
     postsData: [
@@ -23,36 +18,34 @@ let initialState = {
     ],
     newPostText: 'ttt',
     profile: null,
+    status: ""
 };
 
 const profileReducer = (state = initialState, action) => {
-    let stateCopy = {...state};
+    
     switch (action.type) {
         case ADD_POST:
             let newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             };
-            return stateCopy = {
+            return {
                 ...state,
                 postsData: [...state.postsData, newPost],
                 newPostText: ''
             };
         
-        case UPDATE_NEW_POST_TEXT:
-            
-            stateCopy.newPostText = action.newText;
-            return stateCopy = {
-                ...state,
-                newPostText: action.newText,
-            };
-
         case SET_PROFILE:
-        
             return {
                 ...state,
                 profile: action.profile,
+            };
+
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status,
             };
         
         default:
@@ -63,10 +56,20 @@ const profileReducer = (state = initialState, action) => {
 
 export default profileReducer;
 
-export const getProfile = (userId) => {
-    return (dispatch) => {
-        profileAPI.getProfile(userId).then( data => {
-            dispatch(setProfile(data))
-        })
+export const getProfile = (userId) => async (dispatch) => {
+    const data = await profileAPI.getProfile(userId)
+    dispatch(setProfile(data))    
+}
+
+export const getStatus = (userId) => async (dispatch) => {
+    const data = await profileAPI.getStatus(userId)
+    dispatch(setStatus(data))
+}
+
+export const updateStatus = (status) => async (dispatch) => {
+    debugger
+    const data = await profileAPI.updateStatus(status)
+    if (data.resultCode === 0) {
+        dispatch(setStatus(status))
     }
 }

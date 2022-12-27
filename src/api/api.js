@@ -9,35 +9,55 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers (pageNumber = 1, pageSize = 10) {
-    return instance.get(`users?page=${pageNumber}&count=${pageSize}`)
-        .then (response => {
-            
-            return response.data})
+    async getUsers (pageNumber = 1, pageSize = 10) {
+    const response = await instance.get(`users?page=${pageNumber}&count=${pageSize}`);
+        return response.data;
     },
 
-    setUnfolow (id) {
-    return instance.delete(`follow/${id}`)
-        .then (response => response.data)
+    async setUnfolow (id) {
+    const response = await instance.delete(`follow/${id}`);
+        return response.data;
     },
 
-    setFolow (id) {
-    return instance.post(`follow/${id}`, {})
-        .then (response => response.data)
+    async setFolow (id) {
+    const response = await instance.post(`follow/${id}`, {});
+        return response.data;
     }
 
 }
 
 export const authAPI = {
-    getAuth () {
-        return instance.get(`auth/me`)
-            .then( response => response.data )
-    }
+    async getAuth () {
+        const response = await instance.get(`auth/me`);
+        return response.data;
+    },
+
+    async login (email, password, rememberMe=false) {
+        const response = await instance.post('auth/login', { email, password, rememberMe });
+        return response.data;
+    },
+
+    async logout () {
+        const response = await instance.delete('auth/login');
+        return response.data;
+    },
+
 }
 
 export const profileAPI = {
-    getProfile (userId) {
-        return instance.get(`profile/${userId}`)
-        .then( response => response.data )
-    }
+    async getProfile (userId) {
+        const response = await instance.get(`profile/${userId}`);
+        return response.data;
+    },
+
+    async getStatus (userId) {
+        const response = await instance.get(`profile/status/${userId}`);
+        return response.data;
+    },
+
+    async updateStatus (status) {
+        const response = await instance.put(`profile/status`, { status: status });
+        return response.data;
+    },
+
 }

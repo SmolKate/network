@@ -2,9 +2,9 @@ import React from "react";
 import s from './MessageItem.module.css';
 
 
-const MessageItem = (props) => {
+const MessageItem = ({name, message}) => {
     let className;
-    if (props.name == 'me') {
+    if (name === 'me') {
         className = s.messageItemMe
     } else {
         className = s.messageItemOther
@@ -12,7 +12,7 @@ const MessageItem = (props) => {
     return (
         <div>
             <div className={className}>
-                {props.name}: {props.message}
+                {name}: {message}
             </div>         
         </div>
     )

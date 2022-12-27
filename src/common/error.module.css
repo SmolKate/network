@@ -1,0 +1,15 @@
+.errorMsg  textarea, .errorMsg  input {
+    border: solid rgb(128, 20, 20) 3px
+}
+
+
+
+
+.errorMsg {
+    color: rgb(128, 20, 20);
+}
+
+.form {
+    padding: 5px;
+}
+

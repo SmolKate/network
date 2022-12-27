@@ -4,6 +4,7 @@ import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import { compose } from 'redux';
+import { withFormik } from "formik";
   
 
 let mapStateToProps = (state) => {
@@ -14,8 +15,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        onAddMessage : () => {dispatch(addMessageActionCreator())},
-        updateNewMessageText : (text) => {dispatch(updateNewMessageTextActionCreator(text))}
+        onAddMessage : (values) => {dispatch(addMessageActionCreator(values))},
+        
     }
 }
 

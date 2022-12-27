@@ -7,9 +7,21 @@ import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import UsersContainer from './components/Content/Users/UsersContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import Login from './components/Content/Login/Login';
+import { initialiseApp } from './redux/app-reducer';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import Preloader from './common/Preloader/Preloader';
 
 
-const App = (props) => {
+const App = ({initialiseApp, isInitialised}) => {
+  
+  useEffect(() => {
+    initialiseApp()
+  }, []);
+
+  if (!isInitialised) {
+    return <Preloader />
+  }
   return (
     <div className = 'app-wraper'>
       <HeaderContainer />
@@ -30,4 +42,9 @@ const App = (props) => {
   )  
 }
 
-export default App;
+let mapStateToProps = (state) => {
+  return {
+      isInitialised: state.app.isInitialised
+  }
+}
+export default connect(mapStateToProps, {initialiseApp})(App)

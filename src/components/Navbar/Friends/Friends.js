@@ -3,8 +3,8 @@ import s from './Friends.module.css';
 import FriendsItem from "./FriendsItem/FriendsItem";
 
 
-const Friends = (props) => {
-    let friendsItem = props.friendsData
+const Friends = ({friendsData}) => {
+    let friendsItem = friendsData
         .map (p => <FriendsItem name={p.name} />)
 
    

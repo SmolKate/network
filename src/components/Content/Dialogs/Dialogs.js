@@ -2,28 +2,18 @@ import React from "react";
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
-import { Navigate } from "react-router-dom";
+import NewMessageForm from "./NewMessageForm";
+import { withFormik } from "formik";
+import * as Yup from 'yup'; 
 
 
-const Dialogs = (props) => {
+const Dialogs = ({dialogsPage, onAddMessage}) => {
     
-    let dialogElements = props.dialogsPage.dialogsData
-        .map (d => <DialogItem name={d.name} id={d.id}/>)
+    let dialogElements = dialogsPage.dialogsData
+        .map (d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
 
-    let messageElements = props.dialogsPage.messagesData
-        .map (m => <MessageItem message={m.message} name={m.name}/>)
-
-    let newMessageElement = React.createRef();
-    
-    let onAddMessage = () => {
-        props.onAddMessage();
-    }
-
-    let onMessageChange = () => {
-        let text = newMessageElement.current.value;
-        props.updateNewMessageText(text);
-        
-    }
+    let messageElements = dialogsPage.messagesData
+        .map (m => <MessageItem key={m.id} message={m.message} name={m.name}/>)
 
     return (
         <div className={s.dialogs}>
@@ -34,16 +24,25 @@ const Dialogs = (props) => {
                 <div>
                     {messageElements}
                 </div>
-                <div>
-                    <div autoFocus>
-                        <textarea  ref = {newMessageElement} value={props.dialogsPage.newMessageText} onChange={onMessageChange}/>
-                    </div>
-                    <div>
-                        <button onClick={onAddMessage}>Send Answer</button>
-                    </div>
-                </div>
+                <DialogsFormFormik onAddMessage={onAddMessage}/>
             </div>
         </div>
     )
 }
 export default Dialogs;
+
+export const DialogsFormFormik = withFormik({
+    
+    mapPropsToValues ({newMessage}) {
+        return {
+            newMessage: newMessage || ''
+        }
+    }, 
+    validationSchema: Yup.object().shape({
+        newMessage: Yup.string().max(20, 'Max length is 20 simbols.').required('')
+    }),
+    handleSubmit (values, {...actions}) {
+        actions.props.onAddMessage(values.newMessage)
+        values.newMessage = ''
+    }
+})(NewMessageForm)

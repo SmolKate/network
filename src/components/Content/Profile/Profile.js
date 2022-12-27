@@ -9,26 +9,24 @@ import { useEffect } from "react";
 const Profile = (props) => {
     const location = useLocation();
     const {userId} = useParams();
-     
+    let {isAuthFetching, getProfile, getStatus, userAuthId} = props
     
     useEffect(() => { 
-        debugger
-        if (props.isAuthFetching === false) {
-            debugger
+        if (isAuthFetching === false) {
             if (!userId) {
-                debugger
-                props.getProfile(props.userAuthId)
+                getProfile(userAuthId)
+                getStatus(userAuthId)
             } else {
-                debugger
-                props.getProfile(userId)
+                getProfile(userId)
+                getStatus(userId)
             }
             
-        }}, [props.isAuthFetching, location.pathname]);
-    console.log(props)   
+        }}, [isAuthFetching, getProfile, getStatus, userAuthId, userId, location.pathname]);
+    
     
     return (
         <div className = {s.profile}>
-            <UserInfo profile={props.profile}/>
+            <UserInfo profile={props.profile} userId={userId} userAuthId={props.userAuthId} status={props.status} updateStatus={props.updateStatus}/>
             <MyPostsContainer />
         </div>
     )
