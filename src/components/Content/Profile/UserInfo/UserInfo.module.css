@@ -5,3 +5,7 @@
 .preloader {
     width: 80px;
 }
+
+.avaPhoto {
+    max-width: 100px;
+}

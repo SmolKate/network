@@ -3,11 +3,14 @@ import { profileAPI } from "../api/api";
 const ADD_POST = 'profile/ADD-POST';
 const SET_PROFILE = 'profile/SET_PROFILE';
 const SET_STATUS = 'profile/SET_STATUS';
+const UPDATE_PHOTO_SUCCESS = 'UPDATE_PHOTO_SUCCESS'
 
 
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText})
 export const setProfile = (profile) => ({type: SET_PROFILE, profile})
 export const setStatus = (status) => ({type: SET_STATUS, status})
+export const updatePhotoSuccess = (photos) => ({type: UPDATE_PHOTO_SUCCESS, photos})
+
 
 let initialState = {
     postsData: [
@@ -47,6 +50,12 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status,
             };
+
+        case UPDATE_PHOTO_SUCCESS:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos},
+            };
         
         default:
             return state;
@@ -67,9 +76,15 @@ export const getStatus = (userId) => async (dispatch) => {
 }
 
 export const updateStatus = (status) => async (dispatch) => {
-    debugger
     const data = await profileAPI.updateStatus(status)
     if (data.resultCode === 0) {
         dispatch(setStatus(status))
+    }
+}
+
+export const updatePhoto = (file) => async (dispatch) => {
+    const data = await profileAPI.getFollowedUsers(file)
+    if (data.resultCode === 0) {
+        dispatch(updatePhotoSuccess(data.data.photos))
     }
 }

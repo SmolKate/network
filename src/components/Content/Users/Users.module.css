@@ -1,9 +1,33 @@
 .photo img {
-    width: 50px;
-    border-radius: 25px;
+    width: 60px;
+    border-radius: 30px;
+    grid-area: p;
 }
 
 .selectedPage {
     font-weight: bold;
    
+}
+
+.userBlock {
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+    padding-left: 10px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    grid-gap: 10px;
+    grid-template-areas:
+    "p i";
+}
+
+.info {
+    grid-area: i;
+    
+}
+
+.info div {
+    overflow-wrap: anywhere;
+    width: 100%
 }

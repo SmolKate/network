@@ -35,6 +35,7 @@ const App = ({initialiseApp, isInitialised}) => {
         <Route path='/users' element={<UsersContainer />} />
         <Route path='/dialogs/*' element={<Dialogs />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Login />} />
         
       </Routes>
       </div>

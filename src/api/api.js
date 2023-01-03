@@ -22,7 +22,13 @@ export const usersAPI = {
     async setFolow (id) {
     const response = await instance.post(`follow/${id}`, {});
         return response.data;
-    }
+    },
+
+    async getFollowedUsers (pageNumber = 1, pageSize = 9) {
+        const response = await instance.get(`users?friend=true&count=${pageSize}&page=${pageNumber}`);
+            return response.data;
+        },
+
 
 }
 
@@ -57,6 +63,13 @@ export const profileAPI = {
 
     async updateStatus (status) {
         const response = await instance.put(`profile/status`, { status: status });
+        return response.data;
+    },
+
+    async updatePhoto (file) {
+        const formData = new FormData()
+        formData.append("image", file)
+        const response = await instance.put(`profile/photo`, formData, { headers: {'Content-Type': 'multipart/form-data'}});
         return response.data;
     },
 

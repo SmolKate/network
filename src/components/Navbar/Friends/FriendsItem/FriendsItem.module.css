@@ -1,12 +1,18 @@
 .item {
     padding: 5px;
+    width: 50px;
 }
 
 .name {
     text-align: center;
+    word-wrap: break-word
 }
 
 .image img {
     border-radius: 25px;
     width: 50px;
+}
+
+.unfollowBtn {
+    font-size: 9px
 }

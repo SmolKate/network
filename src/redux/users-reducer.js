@@ -1,4 +1,5 @@
 import { usersAPI } from "../api/api";
+import { getFollowedUsers } from "./friends-reducer";
 
 const FOLLOW = 'users/FOLLOW';
 const UNFOLLOW = 'users/UNFOLLOW';
@@ -109,6 +110,7 @@ export const follow = (userId) => async (dispatch) => {
         dispatch(followSuccess(userId))
     };
     dispatch(changeIsFollowingInProgress(false, userId));
+    dispatch(getFollowedUsers())
 }
 
 
@@ -119,5 +121,6 @@ export const unfollow = (userId) => async (dispatch) => {
         dispatch(unfollowSuccess(userId))
     };
     dispatch(changeIsFollowingInProgress(false, userId));
+    dispatch(getFollowedUsers())
 }
 

@@ -14,7 +14,7 @@ const MyPosts = (props) => {
     return (
         <div>
             <h3>My posts</h3>
-            <NewPostFormFormik onAddPost={props.addPost}/>
+            { props.isAuth && <NewPostFormFormik onAddPost={props.addPost}/>}
             <div className = {s.posts}>
                 {postsElements}
             </div>

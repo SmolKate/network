@@ -1,4 +1,5 @@
 import React from 'react';
+import s from './UsersContainer.module.css'
 import { connect } from 'react-redux';
 import Users from './Users';
 import { getUsers, follow, unfollow, setPageNumber} from '../../../redux/users-reducer'
@@ -22,8 +23,11 @@ class UsersContainer extends React.Component {
     
     render () {
         return <div>
-            {this.props.isFetching ? <Preloader /> : null}
-            <div>
+        <div className={s.preloaderBlock}>
+            {this.props.isFetching ? <div>Loading...</div> : null}
+        </div>
+            
+            <div className={s.pagesBlock}>
                 <PagesNavigation totalUsersCount={this.props.totalUsersCount} 
                     pageSize={this.props.pageSize} 
                     pageNumber={this.props.pageNumber} 
@@ -34,6 +38,7 @@ class UsersContainer extends React.Component {
                     unfollow={this.props.unfollow}
                     follow={this.props.follow}
                     isFollowingInProgress={this.props.isFollowingInProgress}
+                    isAuth={this.props.isAuth}
                 />
             </div>
         </div>
@@ -48,6 +53,7 @@ let mapStateToProps = (state) => {
         totalUsersCount: getTotalUsersCount(state),
         isFetching: getIsFetching(state),
         isFollowingInProgress: getIsFollowingInProgress(state),
+        isAuth: state.auth.isAuth
     }
 }
 // let mapStateToProps = (state) => {

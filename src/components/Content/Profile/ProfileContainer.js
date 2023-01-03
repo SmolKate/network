@@ -1,6 +1,6 @@
 import React from "react";
 import Profile from "./Profile";
-import { getProfile, updateStatus, getStatus } from "../../../redux/profile-reducer";
+import { getProfile, updateStatus, getStatus, updatePhoto } from "../../../redux/profile-reducer";
 import { connect } from 'react-redux';
 
 
@@ -29,9 +29,10 @@ let mapStateToProps = (state) => {
         profile: state.profilePage.profile,
         userAuthId: state.auth.id,
         isAuthFetching: state.auth.isAuthFetching,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        isAuth : state.auth.isAuth,
     }
 }
 
 
-export default connect (mapStateToProps, {getProfile, getStatus, updateStatus})(ProfileContainer);
+export default connect (mapStateToProps, {getProfile, getStatus, updateStatus, updatePhoto})(ProfileContainer);

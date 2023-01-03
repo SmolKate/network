@@ -1,16 +1,22 @@
 import React from "react";
 import s from './Friends.module.css';
 import FriendsItem from "./FriendsItem/FriendsItem";
+import { useEffect } from "react";
 
 
-const Friends = ({friendsData}) => {
-    let friendsItem = friendsData
-        .map (p => <FriendsItem name={p.name} />)
+const Friends = ({friendsData, isFollowingInProgress, unfollow}) => {
+
+    let friendsItem = null
+    if(!!friendsData) {
+        friendsItem = friendsData
+            .map (p => <FriendsItem key={p.id} id={p.id} name={p.name} photo={p.photos.small} 
+                isFollowingInProgress={isFollowingInProgress} unfollow={unfollow} />)
+    }
+    
 
    
     return (
-        <div className={s.friendsComp}>
-            <h2>Friends</h2>
+        <div>
             <div className={s.friendsField}>
                 {friendsItem}
             </div>         

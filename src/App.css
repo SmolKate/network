@@ -11,7 +11,7 @@
   background-color: blueviolet;
   display: grid;
   grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 15% 85%;
   grid-gap: 10px;
   grid-template-areas:
   "h h"
