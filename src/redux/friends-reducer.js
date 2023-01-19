@@ -45,7 +45,6 @@ const friendsReducer = (state = initialState, action) => {
 export default friendsReducer;
 
 export const getFollowedUsers = (pageNumber, pageSize) => async (dispatch) => {
-    debugger
     const data = await usersAPI.getFollowedUsers(pageNumber, pageSize)
     console.log(data.items)
     dispatch(getFollowedUsersData(data.items))

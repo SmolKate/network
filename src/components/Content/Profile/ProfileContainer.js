@@ -1,6 +1,6 @@
 import React from "react";
 import Profile from "./Profile";
-import { getProfile, updateStatus, getStatus, updatePhoto } from "../../../redux/profile-reducer";
+import { getProfile, updateStatus, getStatus, updatePhoto, updateProfile } from "../../../redux/profile-reducer";
 import { connect } from 'react-redux';
 
 
@@ -35,4 +35,4 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect (mapStateToProps, {getProfile, getStatus, updateStatus, updatePhoto})(ProfileContainer);
+export default connect (mapStateToProps, {getProfile, getStatus, updateStatus, updatePhoto, updateProfile})(ProfileContainer);

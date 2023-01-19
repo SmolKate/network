@@ -9,7 +9,7 @@ const UPDATE_PHOTO_SUCCESS = 'UPDATE_PHOTO_SUCCESS'
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText})
 export const setProfile = (profile) => ({type: SET_PROFILE, profile})
 export const setStatus = (status) => ({type: SET_STATUS, status})
-export const updatePhotoSuccess = (photos) => ({type: UPDATE_PHOTO_SUCCESS, photos})
+// export const updatePhotoSuccess = (photos) => ({type: UPDATE_PHOTO_SUCCESS, photos})
 
 
 let initialState = {
@@ -51,11 +51,11 @@ const profileReducer = (state = initialState, action) => {
                 status: action.status,
             };
 
-        case UPDATE_PHOTO_SUCCESS:
-            return {
-                ...state,
-                profile: {...state.profile, photos: action.photos},
-            };
+        // case UPDATE_PHOTO_SUCCESS:
+        //     return {
+        //         ...state,
+        //         profile: {...state.profile, photos: action.photos},
+        //     };
         
         default:
             return state;
@@ -82,9 +82,22 @@ export const updateStatus = (status) => async (dispatch) => {
     }
 }
 
-export const updatePhoto = (file) => async (dispatch) => {
-    const data = await profileAPI.getFollowedUsers(file)
+export const updatePhoto = (file) => async (dispatch, getState) => {
+    const userId = getState().auth.id
+    const data = await profileAPI.updatePhoto(file)
     if (data.resultCode === 0) {
-        dispatch(updatePhotoSuccess(data.data.photos))
+        dispatch(getProfile(userId))
+        // dispatch(updatePhotoSuccess(data.data.photos))
+    }
+}
+
+export const updateProfile = (profile, setStatus, setEditMode) => async (dispatch, getState) => {
+    const userId = getState().auth.id
+    const data = await profileAPI.updateProfile(profile)
+    if (data.resultCode === 0) {
+        setEditMode(false)
+        dispatch(getProfile(userId))
+    } else {
+        setStatus(data.messages)
     }
 }

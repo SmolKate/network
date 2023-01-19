@@ -73,4 +73,9 @@ export const profileAPI = {
         return response.data;
     },
 
+    async updateProfile (profile) {
+        const response = await instance.put(`profile`, profile);
+        return response.data;
+    },
+
 }
