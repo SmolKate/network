@@ -1,5 +1,14 @@
 .description {
+    height: 100%;
     padding: 5px;
+    display: grid;
+    grid-template-rows: 180px 1fr;
+    grid-template-columns: 180px 1fr;
+    grid-gap: 10px;
+    grid-template-areas:
+    "p i"
+    "b i";
+
 }
 
 .preloader {
@@ -7,9 +16,59 @@
 }
 
 .avaPhoto {
-    max-width: 100px;
+    width: 180px;
+    grid-area: p;
+    height: 100%;
+}
+
+.avaPhoto img {
+    border-radius: 5px;
+}
+
+.changePhoto {
+    top: -180px;
+    background-color: rgba(0,0,0,0.5);
+    grid-area: p;
+    border-radius: 5px;
+}
+
+.contactItem {
+    padding-left: 15px;
 }
 
 .contacts {
-    padding-left: 15px;
+    order: 2;
 }
+
+.userInfo {
+    order: 1;
+}
+
+
+
+.profileData {
+    max-width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    flex-grow: 1;
+    grid-area: i;
+
+}
+
+.editBtn {
+    grid-area: b;
+}
+
+.jobPicture {
+    width: 60px;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+}
+
+.jobPicture img {
+    border: 1px solid white;
+    border-radius: 30px;
+}
+

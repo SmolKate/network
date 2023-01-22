@@ -16,15 +16,19 @@ const Header = ({isAuth, login, logout}) => {
         <header className = {s.head}>
           <img src='https://static.vecteezy.com/system/resources/thumbnails/008/977/302/small/simple-logo-in-the-shape-of-a-mountain-panorama-themed-logo-vector.jpg'></img>
           <div className = {s.loginBlock}>
-            { isAuth 
+            <div className = {s.innerLoginBlock}>
+              { isAuth 
               ? <div>
-                  {login}
-                  <div>
-                    <Link to="/profile" onClick={logout}>logout</Link>
-                  </div>
+                  
+                    {login}
+                  
+                  <button>
+                    <Link to="/profile" onClick={logout}>Log Out</Link>
+                  </button>
                 </div>
                 
-              : <Link to="/login">login</Link>}
+              : <button><Link to="/login">Log In</Link></button>}
+            </div>
           </div>
         </header>
   )

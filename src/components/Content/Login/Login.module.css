@@ -1,0 +1,17 @@
+.loginBox {
+    margin: 50px auto;
+    padding: 10px;
+    width: 200px;
+    border: 2px solid rgb(138,43,226);
+    border-radius: 5px;
+    background: rgb(138,43,226);
+    background: linear-gradient(0deg, rgba(138,43,226,1) 10%, rgba(253,187,45,0.3) 100%);
+    position: relative
+    
+}
+
+.login img {
+    width: 100%;
+    opacity: 0.5;
+    position: fixed;
+}

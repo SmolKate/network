@@ -1,0 +1,9 @@
+.changeStatus {
+    color: white;
+    font-size: 12px;
+}
+
+.edit, .status {
+    height: 40px;
+    padding: 10px 0px;
+}

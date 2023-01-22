@@ -24,7 +24,7 @@ export const usersAPI = {
         return response.data;
     },
 
-    async getFollowedUsers (pageNumber = 1, pageSize = 9) {
+    async getFollowedUsers (pageNumber = 1, pageSize = 6) {
         const response = await instance.get(`users?friend=true&count=${pageSize}&page=${pageNumber}`);
             return response.data;
         },
@@ -38,13 +38,18 @@ export const authAPI = {
         return response.data;
     },
 
-    async login (email, password, rememberMe=false) {
-        const response = await instance.post('auth/login', { email, password, rememberMe });
+    async login (email, password, rememberMe=false, captcha) {
+        const response = await instance.post('auth/login', { email, password, rememberMe, captcha });
         return response.data;
     },
 
     async logout () {
         const response = await instance.delete('auth/login');
+        return response.data;
+    },
+
+    async getCaptcha () {
+        const response = await instance.get('security/get-captcha-url');
         return response.data;
     },
 

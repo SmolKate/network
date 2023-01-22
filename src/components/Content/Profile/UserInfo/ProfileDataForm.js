@@ -4,7 +4,6 @@ import s from './UserInfo.module.css';
 
 const ProfileDataForm = (props) => {
     console.log(props.status)
-    debugger
     return (
         <Form>
             <button type='submit'>Save</button>

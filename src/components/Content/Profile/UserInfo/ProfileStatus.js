@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import s from './ProfileStatus.module.css';
+
 
 const ProfileStatus = (props) => {
 
-    let [editMode, setEditMode] = useState(false)
-    let [status, setStatus] = useState(props.status)
+    const [editMode, setEditMode] = useState(false)
+    const [status, setStatus] = useState(props.status)
+    const [hoverMode, setHoverMode]=useState(false)
 
     useEffect( () => {
         setStatus(props.status)
@@ -36,16 +39,24 @@ const ProfileStatus = (props) => {
         setStatus(e.currentTarget.value)
     }; 
     
+    const handleMouseEnter = () => {
+        setHoverMode(true)
+    }
 
+    const handleMouseLeave = () => {
+        setHoverMode(false)
+    }
     return (
         <div>
             {!editMode &&
-                <div>
-                    <span onDoubleClick={activateEditMode}><b>Status</b>: {props.status || "-----"}</span>
+                <div className={s.status}>
+                    <span onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} onDoubleClick={activateEditMode}><b>Status</b>: {props.status || "-----"}</span>
+                    { !!hoverMode && !props.userId && 
+                    <div className={s.changeStatus}>double click to change</div>}
                 </div>
             }
             {editMode &&
-                <div>
+                <div className={s.edit}>
                     <input onChange={onStatusChange} autoFocus onBlur={deactivateEditMode} value={status}></input>
                 </div>
             }

@@ -5,13 +5,13 @@ import FriendsContainer from "./Friends/FriendsContainer";
 
 const Navbar = (props) => {
     return (
-        <div>
-            <nav className = {s.nav}>
+        <div className = {s.nav}>
+            <nav>
                 <div className = {s.item}>
                 <Link to="/profile" activeClassName={s.activelink}>Profile</Link>
                 </div>
                 <div className = {s.item}>
-                <Link to="/dialogs">Messages</Link>
+                <Link to="/dialogs">Chats</Link>
                 </div>
                 <div className = {s.item}>
                 <Link to="/users">Users</Link>

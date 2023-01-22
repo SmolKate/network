@@ -11,7 +11,7 @@ export const setPageNumber = (pageNumber) => ({type: SET_PAGE_NUMBER, pageNumber
 let initialState = {
     friendsData: [],
     totalUsersCount: 40,
-    pageSize: 9,
+    pageSize: 6,
     pageNumber: 1,
 };
 

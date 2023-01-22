@@ -1,13 +1,14 @@
 import { Form, Field } from 'formik'
 import React from 'react';
 import s from '../../../common/error.module.css'
+import st from './LoginForm.module.css'
 
 
-const LoginForm = ({ errors, touched, status }) => {
-    
+const LoginForm = ({ errors, touched, status, ...props }) => {
+    console.log(props.captchaUrl)
     return (
        
-            <Form className={s.form}>
+            <Form className={st.form}>
             <div>
                 {!!status && <div className={s.errorMsg}>{status}</div>}
             </div>
@@ -20,6 +21,11 @@ const LoginForm = ({ errors, touched, status }) => {
                 {touched.password && errors.password && <div className={s.errorMsg}>{errors.password}</div>}
             </div>
                 <Field name='rememberMe' type='checkbox'  />Remeber Me
+                {!!props.captchaUrl && <div>
+                    <div><img src={props.captchaUrl}/></div>
+                    <div><Field name='captcha' type='text' placeholder='input code' /></div> 
+                </div>
+                }
                 <button type='submit' >Submit</button>
             </Form>
         

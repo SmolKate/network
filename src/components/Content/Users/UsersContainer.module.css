@@ -1,6 +1,8 @@
 .pagesBlock {
     padding: 10px;
-    padding-bottom: 0px;
+    margin-left:auto;
+    margin-right:auto;
+    width: fit-content;
 }
 
 .preloaderBlock {

@@ -11,6 +11,7 @@ import { initialiseApp } from './redux/app-reducer';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Preloader from './common/Preloader/Preloader';
+import backPhoto from './assets/forest.jpeg'
 
 
 const App = ({initialiseApp, isInitialised}) => {
@@ -22,8 +23,13 @@ const App = ({initialiseApp, isInitialised}) => {
   if (!isInitialised) {
     return <Preloader />
   }
-  return (
+  return (<div>
+    <div className = 'background'>
+      <img src={backPhoto}/>
+    </div>
     <div className = 'app-wraper'>
+    
+      
       <HeaderContainer />
       <Navbar />
       <div className = 'app-wraper-content'>
@@ -39,6 +45,7 @@ const App = ({initialiseApp, isInitialised}) => {
         
       </Routes>
       </div>
+    </div>
     </div>
   )  
 }

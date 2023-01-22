@@ -9,12 +9,12 @@ import s from './Friends.module.css';
 
 
 const FriendsContainer = (props) => {
-    let {friendsData, getFollowedUsers}=props
+    let {friendsData, getFollowedUsers, isAuth}=props
     useEffect(() => { 
         if (friendsData.length === 0 ) {
             getFollowedUsers()
         }
-    }, [getFollowedUsers])
+    }, [getFollowedUsers, isAuth])
     
     const onPageChange = (pageNumber) => { 
         getFollowedUsers (pageNumber, props.pageSize)
@@ -23,12 +23,16 @@ const FriendsContainer = (props) => {
     }
 
     return (<div className={s.friendsComp}>
+    {props.isAuth && <div>
         <h2>Friends</h2>
-        <PagesNavigation totalUsersCount={props.totalUsersCount} 
-                pageSize={props.pageSize} 
-                pageNumber={props.pageNumber} 
-                onPageChange={onPageChange}/>
+        <div className={s.pagesBlock}>
+            <PagesNavigation totalUsersCount={props.totalUsersCount} 
+                    pageSize={props.pageSize} 
+                    pageNumber={props.pageNumber} 
+                    onPageChange={onPageChange}/>
+        </div>
         <Friends {...props}/>
+        </div>}
     </div>)
     
 }

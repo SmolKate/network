@@ -1,25 +1,74 @@
 #root {
-  background-color: blueviolet;
-  padding: 5px;
-
+  position: absolute;
+  z-index: auto;
+  height: 100vh;
+  width: 100vw;
 }
 
 .app-wraper {
-  
-  margin: 0px auto;
-  width: 1200px;
-  background-color: blueviolet;
+  position: relative;
+  z-index: 15;
+  /* margin: 0px auto; */
+  height: 100vh;
+  width: 100%;
   display: grid;
   grid-template-rows: 60px 1fr;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 15% 1fr;
   grid-gap: 10px;
   grid-template-areas:
   "h h"
   "n c";
 }
 
-.app-wraper-content {
-  background-color: rgb(127, 98, 155);
-  grid-area: c;
+/* @media all and (max-width: 575px) {
+  .app-wraper { 
+    position: relative;
+  z-index: 15;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 60px 120px 1fr;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  grid-template-areas:
+  "h"
+  "n"
+  "c";
+ }
+} */
 
+@media all and (max-width: 575px) {
+  .app-wraper { 
+    position: relative;
+    z-index: 15;
+    /* margin: 0px auto; */
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 85px 1fr;
+    grid-gap: 10px;
+    grid-template-areas:
+    "h h"
+    "n c";
+ }
+}
+.app-wraper-content {
+  height: 100%;
+  width: 100%;
+  grid-area: c;
+}
+
+.background {
+  background-color: blueviolet;
+  position: fixed;
+  width: 100vw;
+  height: max-content;
+}
+
+.background img {
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  object-fit: cover;
 }
