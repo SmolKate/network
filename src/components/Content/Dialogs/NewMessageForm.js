@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Field } from "formik";
-import s from '../../../common/error.module.css'
+import s from './NewMessageForm.module.css'
 
 const NewMessageForm = ({ errors, touched }) => {
 
@@ -10,7 +10,7 @@ const NewMessageForm = ({ errors, touched }) => {
                 <Field name='newMessage' component='textarea' placeholder='New Message'/>
             </div>
             {touched.newMessage && errors.newMessage && <div className={s.errorMsg}>{errors.newMessage}</div>}
-            <div>
+            <div className={s.sendMessageBtn}>
                 <button type='submit'>Send Answer</button>
             </div>
         </Form>

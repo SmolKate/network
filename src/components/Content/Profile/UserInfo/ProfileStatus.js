@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import s from './ProfileStatus.module.css';
+import AvaMenu from '../../../../assets/3dots.png';
 
 
 const ProfileStatus = (props) => {
@@ -51,8 +52,10 @@ const ProfileStatus = (props) => {
             {!editMode &&
                 <div className={s.status}>
                     <span onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} onDoubleClick={activateEditMode}><b>Status</b>: {props.status || "-----"}</span>
-                    { !!hoverMode && !props.userId && 
-                    <div className={s.changeStatus}>double click to change</div>}
+                    {!props.userId &&
+                    <div className={s.avaMenu} onClick={activateEditMode}>
+                        <img src={AvaMenu}/> 
+                    </div>}
                 </div>
             }
             {editMode &&

@@ -20,6 +20,7 @@
   "n c";
 }
 
+
 /* @media all and (max-width: 575px) {
   .app-wraper { 
     position: relative;
@@ -43,7 +44,7 @@
     z-index: 15;
     /* margin: 0px auto; */
     height: 100vh;
-    width: 100%;
+    width: calc(100vw - 20px);
     display: grid;
     grid-template-rows: 60px 1fr;
     grid-template-columns: 85px 1fr;
@@ -55,7 +56,7 @@
 }
 .app-wraper-content {
   height: 100%;
-  width: 100%;
+  width: calc(100% - 20px);
   grid-area: c;
 }
 

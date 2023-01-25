@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import s from './UserInfo.module.css';
 import Preloader from "../../../../common/Preloader/Preloader";
 import ProfileStatus from './ProfileStatus';
@@ -6,6 +6,8 @@ import userPhoto from '../../../../assets/ava3.png';
 import JobPicture from '../../../../assets/lookingForAJob.jpeg';
 import ProfileDataForm from "./ProfileDataForm";
 import { withFormik } from "formik";
+import * as Yup from 'yup'; 
+
 
 const UserInfo = (props) => {
     const [fileSelecting, setFileSelecting]=useState(false)
@@ -24,7 +26,7 @@ const UserInfo = (props) => {
             props.updatePhoto(file)
             // console.log(fileSelected)
         }
-        setFileSelecting(false)
+        // setFileSelecting(false)
     }
 
     const onEditBtnClick = () => {
@@ -46,20 +48,20 @@ const UserInfo = (props) => {
                 <img onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} src={props.profile.photos.large || userPhoto}></img> 
             </div>
             <div className={s.jobPicture}>
-                        {props.profile.lookingForAJob && <img src={JobPicture}/> }
+                {props.profile.lookingForAJob && <img src={JobPicture}/> }
             </div>
             { !props.userId && !editMode && 
             <div className={s.editBtn}>
                 <button  onClick={onEditBtnClick}>Edit profile</button>
             </div>}
-            { (!!hoverMode||!!fileSelecting) && !props.userId && 
+            { !props.userId && <input id="file-upload" type="file" className={s.inp} onChange={onFileSelecting}/>}
+
+            { !!hoverMode && !props.userId && 
                     <div className={s.changePhoto} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
-                        <div>Change photo</div>
-                        <input type="file" onClick={()=> setFileSelecting(true) } onChange={onFileSelecting}/>
+                        <label htmlFor="file-upload" className={s.chooseFileBtn}>
+                            Change photo   
+                        </label>
                     </div>}
-            {/* <div className={s.changePhoto}>
-                { !props.userId && <input type="file" onChange={onFileSelecting}/>}
-            </div>    */}
                 { editMode 
             ? <ProfileDataFormFormik profile={props.profile} updateProfile={props.updateProfile} setEditMode={setEditMode}/> 
             : <ProfileData profile={props.profile} userId={props.userId} 
@@ -73,28 +75,26 @@ const UserInfo = (props) => {
 const ProfileData = (props) => {
     
     return <div className={s.profileData}>
-            <div className={s.userInfo}>
+            <div className={s.userNameStatus}>
                 {/* { !props.userId && <button onClick={props.onEditBtnClick}>Edit profile</button>} */}
                     <div>
                         {props.profile.fullName}
                     </div>
-                     <div className={s.jobPicture}>
-                        {props.profile.lookingForAJob && <img src={JobPicture}/> }
-                    </div>
-                    <ProfileStatus userId={props.userId} userAuthId={props.userAuthId} status={props.status} updateStatus={props.updateStatus}/>
-                   
-                    { props.profile.lookingForAJob && 
-                    <div>
-                        <b>My professional skils</b>: {props.profile.lookingForAJobDescription}
-                    </div>}
-                    <div>
-                        <b>About me</b>: {props.profile.aboutMe}
-                    </div>
+                    <ProfileStatus userId={props.userId} userAuthId={props.userAuthId} status={props.status} updateStatus={props.updateStatus}/>  
+            </div>
+            <div className={s.userInfo}>
+                <div className={s.aboutMe}>
+                    <b>About me</b>: {props.profile.aboutMe}
+                </div>
+                { props.profile.lookingForAJob && 
+                <div className={s.profSkills}>
+                    <b>My professional skills</b>: {props.profile.lookingForAJobDescription}
+                </div>}
             </div>
             
             <div className={s.contacts}>
                 <b>Contacts</b>: {Object.keys(props.profile.contacts).map( key => {
-                    return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]} />
+                    return props.profile.contacts[key] && <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]} />
                 })}
             </div>
     </div>
@@ -125,6 +125,21 @@ const ProfileDataFormFormik = withFormik ({
             
         }
     },
+
+    validationSchema: Yup.object().shape({
+        fullName: Yup.string().max(20, 'Max length is 20 simbols.').required('Required'),
+        lookingForAJobDescription: Yup.string().max(200, 'Max length is 200 simbols.'),
+        aboutMe: Yup.string().max(200, 'Max length is 200 simbols.'),
+        // facebook: Yup.string().max(10, 'Max length is 10 simbols.').url(),
+        // website: Yup.string().max(10, 'Max length is 10 simbols.'),
+        // vk: Yup.string().max(10, 'Max length is 10 simbols.'),
+        // twitter: Yup.string().max(10, 'Max length is 10 simbols.'),
+        // istagram: Yup.string().max(10, 'Max length is 10 simbols.'),
+        // youtube: Yup.string().max(10, 'Max length is 10 simbols.'),
+        // github: Yup.string().max(10, 'Max length is 10 simbols.'),
+        // mainLink: Yup.string().max(10, 'Max length is 10 simbols.'),
+
+    }),
 
     handleSubmit (values, {props, setStatus, setSubmitting, ...actions}) {
         // setStatus('error')

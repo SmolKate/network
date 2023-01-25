@@ -4,6 +4,22 @@
 }
 
 .edit, .status {
-    height: 40px;
     padding: 10px 0px;
+}
+
+.avaMenu {
+    display: inline-block;
+    grid-area: p;
+    width: 30px;
+    height: 14px;
+    background-color: rgb(185, 138, 230);
+    border: 1px solid white;
+    border-radius: 7px;
+    margin: 5px;
+}
+
+.avaMenu img {
+    width: 30px;
+    height: 15px;
+    object-fit: cover;
 }

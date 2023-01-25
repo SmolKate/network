@@ -18,11 +18,11 @@ let mapStateToProps = (state) => {
 const Login = (props) => {
     
     return (
-        <div className={s.login}>
+        <div>
         {/* <img src={backPhoto}/> */}
         {props.isAuth && <Navigate to={"/profile"}/>}
             <div className={s.loginBox}>
-                <h1>Login</h1>
+                <h1>Log in</h1>
                 <LoginFormFormik login={props.login} captchaUrl={props.captchaUrl}/>
             </div>    
         </div>

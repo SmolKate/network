@@ -1,54 +1,63 @@
 import { Form, Field } from "formik";
 import s from './UserInfo.module.css';
+import er from '../../../../common/error.module.css'
 
 
-const ProfileDataForm = (props) => {
-    console.log(props.status)
+const ProfileDataForm = ({ errors, touched, status, ...props }) => {
+    console.log(status)
     return (
-        <Form>
-            <button type='submit'>Save</button>
-            <div>
-                {!!props.status && <div>{props.status}</div>}
-            </div>
-            <div>
-                <div>
-                    <label htmlFor='fullName'><b>Full Name</b>: </label>
+        <Form className={s.profileData}>
+            <div className={s.userInfo}>
+                <div className={s.userNameStatusForm + ' ' + (!!errors.fullName && s.errorArea)}>
+                    <div>
+                        <label htmlFor='fullName'><b>Full Name</b>: </label>
+                    </div>
+                    <Field name='fullName' type='text' />
+                    {errors.fullName && <div className={s.errorMsg}>{errors.fullName}</div>}
                 </div>
-                <Field name='fullName' type='text' />
-            </div>
-            <div>
-                <div>
-                    <label htmlFor='lookingForAJob'><b>Looking for a job</b>: </label>
+                <div className={s.aboutMe + ' ' + (!!errors.aboutMe && s.errorArea)}>
+                    <div>
+                        <label htmlFor='aboutMe'><b>About me</b>: </label>
+                    </div>
+                    <Field name='aboutMe' component='textarea' />
+                    {errors.aboutMe && <div className={s.errorMsg}>{errors.aboutMe}</div>}
                 </div>
-                <Field name='lookingForAJob' type='checkbox' /> yes
-            </div>
-            <div>
-                <div>
-                    <label htmlFor='lookingForAJobDescription'><b>My professional skils</b>: </label>
+                <div className={s.lookJobForm}>
+                    <div className={s.checkbox}>
+                        <label htmlFor='lookingForAJob'><b>Looking for a job</b>: </label>
+                    </div>
+                    <Field name='lookingForAJob' type='checkbox' /> yes
                 </div>
-                <Field name='lookingForAJobDescription' component='textarea' />
-            </div>
-            <div>
-                <div>
-                    <label htmlFor='aboutMe'><b>About me</b>: </label>
+                <div className={s.profSkills + ' ' + (!!errors.lookingForAJobDescription && s.errorArea)}>
+                    <div>
+                        <label htmlFor='lookingForAJobDescription'><b>My professional skils</b>: </label>
+                    </div>
+                    <Field name='lookingForAJobDescription' component='textarea' />
+                    {errors.lookingForAJobDescription && <div className={s.errorMsg}>{errors.lookingForAJobDescription}</div>}
                 </div>
-                <Field name='aboutMe' component='textarea' />
+                <div className={s.saveBtn}>
+                    <button type='submit'>Save</button>
+                </div>
             </div>
-            <div>
+            
+            <div className={s.contacts}>
                 <b>Contacts</b>: {Object.keys(props.profile.contacts).map( key => {
                     let newKey = key[0].toUpperCase() + key.slice(1);
-                    console.log(newKey)
                     const regex = new RegExp(`${newKey}`)
                     let message
-                    if (props.status) {
-                        message = props.status.map ( msg => {if (msg.match(regex)) { return msg.replace(/\((\w+)->(\w+)\)/, '')}} ) }
-                    return <div className={s.contacts}>
-                        <div>
-                            <label htmlFor={key}><b>{key}</b>: </label>
+                    if (status) {
+                        message = status.filter(msg => msg.match(regex)).map( msg => msg.replace(/\((\w+)->(\w+)\)/, '')) }
+                    console.log(message)
+                    return <div className={ (!!message && message.length > 0) ? s.contactItem + ' ' + s.errorArea : s.contactItem}>
+                            <div>
+                                <label htmlFor={key}><b>{key}</b>: </label>
+                            </div>
+                            <div>
+                                <Field key={key} name={'contacts.'+key} type='text' placeholder={key} />
+                                { !!message && message.length > 0 && <div className={s.errorMsg}>{message}</div>} 
+                            </div>
                         </div>
-                        <Field key={key} name={'contacts.'+key} type='text' placeholder={key} />
-                        {!!message && <div>{message}</div>} 
-                        </div>
+
                 })}
             </div>
             

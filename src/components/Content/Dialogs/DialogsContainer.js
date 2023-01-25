@@ -15,7 +15,7 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        onAddMessage : (values) => {dispatch(addMessageActionCreator(values))},
+        onAddMessage : (newMessage, chatId) => {dispatch(addMessageActionCreator(newMessage, chatId))},
         
     }
 }
