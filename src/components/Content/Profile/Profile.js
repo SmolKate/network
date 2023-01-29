@@ -33,7 +33,7 @@ const Profile = (props) => {
             updateStatus={props.updateStatus} updatePhoto={props.updatePhoto}
             updateProfile={props.updateProfile}
             />
-            <MyPostsContainer />
+            { !userId && <MyPostsContainer /> }
         </div>
     )
 }

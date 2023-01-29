@@ -42,7 +42,7 @@ const LoginFormFormik = withFormik ({
         }
     },
     validationSchema: Yup.object().shape({
-        email: Yup.string().email().max(20, 'Max length is 20 simbols.').required('Required'),
+        email: Yup.string().email().max(100, 'Max length is 100 simbols.').required('Required'),
         password: Yup.string().max(10, 'Max length is 10 simbols.').required('Required'),
     }),
     handleSubmit (values, {props, setStatus, setSubmitting, ...actions}) {
