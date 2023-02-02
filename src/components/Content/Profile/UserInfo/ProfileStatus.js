@@ -2,28 +2,15 @@ import React, { useEffect, useState } from "react";
 import s from './ProfileStatus.module.css';
 import AvaMenu from '../../../../assets/3dots.png';
 
-
 const ProfileStatus = (props) => {
 
     const [editMode, setEditMode] = useState(false)
     const [status, setStatus] = useState(props.status)
-    const [hoverMode, setHoverMode]=useState(false)
 
+    // Necessary to equal status and props.status after new status saving
     useEffect( () => {
         setStatus(props.status)
     }, [props.status])
-
-    // componentDidUpdate (prevProps, prevState) {
-    //     if (prevProps.status !== this.props.status) {
-    //         this.setState({
-    //             status: this.props.status
-    //         })
-    //     }
-    // }
-    // state = {
-    //     editMode: false,
-    //     status: this.props.status
-    // }
 
     const activateEditMode = () => {
         if (!props.userId) {
@@ -40,33 +27,22 @@ const ProfileStatus = (props) => {
         setStatus(e.currentTarget.value)
     }; 
     
-    const handleMouseEnter = () => {
-        setHoverMode(true)
-    }
-
-    const handleMouseLeave = () => {
-        setHoverMode(false)
-    }
     return (
         <div>
             {!editMode &&
                 <div className={s.status}>
-                    <span onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} onDoubleClick={activateEditMode}><b>Status</b>: {props.status || "-----"}</span>
+                    <span onDoubleClick={activateEditMode}><b>Status</b>: {props.status || "-----"}</span>
                     {!props.userId &&
                     <div className={s.avaMenu} onClick={activateEditMode}>
                         <img src={AvaMenu}/> 
                     </div>}
-                </div>
-            }
+                </div>}
             {editMode &&
                 <div className={s.edit}>
                     <input onChange={onStatusChange} autoFocus onBlur={deactivateEditMode} value={status}></input>
-                </div>
-            }
-            
+                </div>}
         </div>
     )
-    
 }
 
 export default ProfileStatus;

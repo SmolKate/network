@@ -9,17 +9,21 @@ import s from './Friends.module.css';
 
 
 const FriendsContainer = (props) => {
-    let {friendsData, getFollowedUsers, isAuth}=props
+    let {friendsData, getFollowedUsers, isAuth} = props
+
+    // Get data about followed users from server after the current user authentication
+
     useEffect(() => { 
         if (friendsData.length === 0 ) {
             getFollowedUsers()
         }
     }, [getFollowedUsers, isAuth])
     
+    // Get new portion of followed users and pass the new page number to the state
+
     const onPageChange = (pageNumber) => { 
         getFollowedUsers (pageNumber, props.pageSize)
-        props.setPageNumber(pageNumber)
-        // this.props.getUsers (pageNumber, this.props.pageSize)
+        props.setPageNumber(pageNumber) 
     }
 
     return (<div className={s.friendsComp}>
@@ -40,7 +44,7 @@ const FriendsContainer = (props) => {
 let mapStateToProps = (state) => {
     return {
         friendsData : state.friendsNavbar.friendsData,
-        isFollowingInProgress: getIsFollowingInProgress(state),
+        isFollowingInProgress: getIsFollowingInProgress(state), // selector
         isAuth: state.auth.isAuth,
         pageSize: state.friendsNavbar.pageSize,
         pageNumber: state.friendsNavbar.pageNumber,

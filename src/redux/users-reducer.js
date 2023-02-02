@@ -15,20 +15,18 @@ export const setUsers = (usersData) => ({type: SET_USERS, usersData});
 export const setTotalCount = (totalUsersCount) => ({type: SET_TOTAL_COUNT, totalUsersCount});
 export const setPageNumber = (pageNumber) => ({type: SET_PAGE_NUMBER, pageNumber})
 export const changeIsFetching = (isFetching) => ({type: CHANGE_IS_FETCHING, isFetching})
+
+// if isFetching is true - add the user to the isFollowingInProgress list; 
+// if isFetching is false - delet the user from the isFollowingInProgress list;
 export const changeIsFollowingInProgress = (isFetching, userId) => ({type: CHANGE_IS_FOLLOWING_PROGRESS, isFetching, userId})
 
 let initialState = {
-    usersData: [
-   //     {id:1, followed:true, name:'Dmitry', status:'I am so pretty', location: {country:'Belarus', city:'Minsk'}, photoURL: 'https://w7.pngwing.com/pngs/338/745/png-transparent-unicorn-emoji-pegasus-drawing-unicorn-horse-purple-fictional-character.png'},
-    //    {id:2, followed:true, name:'Nike', status:'I am here', location: {country:'USA', city:'New York'}, photoURL: 'https://w7.pngwing.com/pngs/338/745/png-transparent-unicorn-emoji-pegasus-drawing-unicorn-horse-purple-fictional-character.png'},
-   //     {id:3, followed:false, name:'Alex', status:'Hi, everybody', location: {country:'Canada', city:'Toronto'}, photoURL: 'https://w7.pngwing.com/pngs/338/745/png-transparent-unicorn-emoji-pegasus-drawing-unicorn-horse-purple-fictional-character.png'},
-   //     {id:4, followed:true, name:'Kate', status:'Ho-ho-ho', location: {country:'UK', city:'London'}, photoURL: 'https://w7.pngwing.com/pngs/338/745/png-transparent-unicorn-emoji-pegasus-drawing-unicorn-horse-purple-fictional-character.png'},
-    ],
+    usersData: [],
     totalUsersCount: 40,
     pageSize: 10,
     pageNumber: 1,
     isFetching: true,
-    isFollowingInProgress: []
+    isFollowingInProgress: [] // array what contains all users with follow/unfollow process in progress
 
 };
 
@@ -88,12 +86,12 @@ const usersReducer = (state = initialState, action) => {
         
         default:
             return state;
-
     }
 }
 
 export default usersReducer;
 
+// Get a portion of users from the server and save data
 export const getUsers = (pageNumber, pageSize) => async (dispatch) => {
     dispatch(changeIsFetching(true))
     const data = await usersAPI.getUsers(pageNumber, pageSize)
@@ -102,7 +100,7 @@ export const getUsers = (pageNumber, pageSize) => async (dispatch) => {
     dispatch(setTotalCount(data.totalCount))
 }
 
-
+// Set the user as followed and put this to the server
 export const follow = (userId) => async (dispatch) => {
     dispatch(changeIsFollowingInProgress(true, userId));
     const data = await usersAPI.setFolow(userId)
@@ -113,7 +111,7 @@ export const follow = (userId) => async (dispatch) => {
     dispatch(getFollowedUsers())
 }
 
-
+// Set the user as unfollowed and put this to the server
 export const unfollow = (userId) => async (dispatch) => {
     dispatch(changeIsFollowingInProgress(true, userId));
     const data = await usersAPI.setUnfolow(userId)

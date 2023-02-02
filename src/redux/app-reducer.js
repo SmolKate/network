@@ -18,12 +18,12 @@ const appReducer = (state = initialState, action) => {
             };
         default:
             return state;
-
     }
 }
 
 export default appReducer;
 
+// Get data from server about whether the user is authorizedor not.
 export const initialiseApp = () => async (dispatch) => {
     await dispatch(setAuth())
     return (dispatch(setInitialisedSuccess()))  

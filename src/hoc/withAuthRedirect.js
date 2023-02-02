@@ -1,6 +1,8 @@
 import { Navigate } from "react-router-dom";
 import { connect } from 'react-redux';
 
+// HOC, which checks wethever the current user is authenticated. If not it redirects to Login page
+
 let mapStateToProps = (state) => {
     return {
         isAuth : state.auth.isAuth

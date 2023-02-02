@@ -1,11 +1,8 @@
-import React from "react";
-import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../../redux/dialogs-reducer";
+import { addMessageActionCreator } from "../../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
-import { compose } from 'redux';
-import { withFormik } from "formik";
-  
+import { compose } from 'redux';  
 
 let mapStateToProps = (state) => {
     return {
@@ -16,15 +13,10 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         onAddMessage : (newMessage, chatId) => {dispatch(addMessageActionCreator(newMessage, chatId))},
-        
     }
 }
 
-export default compose (
-    connect(mapStateToProps, mapDispatchToProps), 
-    withAuthRedirect)(Dialogs)
+// Create two containers: connect and withAuthRedirect HOC, which checks authentification
 
-// let AuthRedirectComponent = withAuthRedirect(Dialogs)
-
-// const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+export default compose (connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)
 

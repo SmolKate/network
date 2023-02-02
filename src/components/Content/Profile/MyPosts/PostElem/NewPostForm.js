@@ -2,7 +2,6 @@ import React from "react";
 import { Field, Form } from "formik";
 import s from './PostElem.module.css'
 
-
 const NewPostForm = ({ errors, touched }) => {
     return (
         <Form className={s.form+' '+(touched.newPost && errors.newPost ? s.errorMsg : '')}>

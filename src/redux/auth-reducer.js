@@ -48,12 +48,12 @@ const authReducer = (state = initialState, action) => {
             }
         default:
             return state;
-
     }
 }
 
 export default authReducer;
 
+// Get login data about the user if he/she is authorised and handle the response
 export const setAuth = () => async (dispatch) => {
     dispatch(changeIsAuthFetching(true))
     const data = await authAPI.getAuth();
@@ -64,7 +64,7 @@ export const setAuth = () => async (dispatch) => {
     }
 }
 
-
+// Send login data of the user from login form to the server and handle the response
 export const login = (email, password, rememberMe, captcha, setStatus) => async (dispatch) => {
     dispatch(changeIsAuthFetching(true))
     const data = await authAPI.login(email, password, rememberMe, captcha)
@@ -79,7 +79,7 @@ export const login = (email, password, rememberMe, captcha, setStatus) => async 
     }
 }
 
-
+// Send request to log out the user to the server and handle the response
 export const logout = () => async (dispatch) => {
     dispatch(changeIsAuthFetching(true))
     const data = await authAPI.logout()
@@ -89,6 +89,7 @@ export const logout = () => async (dispatch) => {
     }
 }
 
+// Get captcha from the server in case of login error
 export const getCaptchaUrl = () => async (dispatch) => {
     const data = await authAPI.getCaptcha()
     const captchaUrl = data.url

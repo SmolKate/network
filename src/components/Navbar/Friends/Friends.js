@@ -1,8 +1,8 @@
 import React from "react";
 import s from './Friends.module.css';
 import FriendsItem from "./FriendsItem/FriendsItem";
-import { useEffect } from "react";
 
+// Creating the list of followed users
 
 const Friends = ({friendsData, isFollowingInProgress, unfollow}) => {
 

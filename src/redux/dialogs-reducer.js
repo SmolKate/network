@@ -20,14 +20,6 @@ let initialState = {
             {id:3, userAuthId: false, text:'But I am not ready yet((.'}
           ]}
       ],
-    // messagesData: [
-    //     {name: }
-    // ],
-    // messagesData: [
-    //     {id:1, name: 'me', message:'Hi'},
-    //     {id:2, name: 'Dima', message:'Hello'},
-    //     {id:3, name: 'me', message:'Chears'}
-    //   ],
 };
 
 const dialogsReducer = (state=initialState, action) => {

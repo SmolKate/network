@@ -5,9 +5,11 @@ import { withFormik } from "formik";
 import NewPostForm from "./PostElem/NewPostForm";
 import * as Yup from 'yup';
 
+// Dispalay user's posts and form to add new post
 
 const MyPosts = (props) => {
 
+    // Create the list of posts
     let postsElements = props.profilePage.postsData
         .map (p => <PostElem key={p.id} id={p.id} message={p.message} likesCount={p.likesCount} />)
 
@@ -15,9 +17,7 @@ const MyPosts = (props) => {
         <div>
             <h3>My posts</h3>
             { props.isAuth && <NewPostFormFormik onAddPost={props.addPost}/>}
-            <div className = {s.posts}>
-                {postsElements}
-            </div>
+            <div className = {s.posts}>{postsElements}</div>
         </div>
     )
 }
@@ -34,12 +34,5 @@ const NewPostFormFormik = withFormik({
         onAddPost(values.newPost)
         values.newPost = ''
         setSubmitting(false)
-        
     },
-
-    // handleSubmit: (values, actions) => {
-    //     actions.props.onAddPost(values.newPost)
-    //     values.newPost = ''
-    //     actions.setSubmitting(false)
-    // }
 })(NewPostForm)

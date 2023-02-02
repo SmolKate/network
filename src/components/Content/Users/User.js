@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const User = (props) => {
     return (<div className={s.userBlock}>
-        
         <div className={s.photo}>
             <Link to={"/profile/"+props.user.id}><img src={props.user.photos.small != null ? props.user.photos.small : userPhoto} /></Link>
         </div>
@@ -20,10 +19,8 @@ const User = (props) => {
                     : <button className={s.followBtn} disabled={props.isFollowingInProgress.some(id => id === props.user.id)} 
                         onClick={ () => {props.follow(props.user.id)}}>Follow</button>}
             </div>}
-            
         </div>
     </div>)
-    
 }
 
 export default User;

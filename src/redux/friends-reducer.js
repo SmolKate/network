@@ -10,7 +10,7 @@ export const setPageNumber = (pageNumber) => ({type: SET_PAGE_NUMBER, pageNumber
 
 let initialState = {
     friendsData: [],
-    totalUsersCount: 40,
+    totalUsersCount: 0,
     pageSize: 6,
     pageNumber: 1,
 };
@@ -18,7 +18,6 @@ let initialState = {
 const friendsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_FOLLOWED_USERS_DATA:
-            console.log(action.followedUsersData)
             return {
                 ...state,
                 friendsData: action.followedUsersData,
@@ -36,7 +35,6 @@ const friendsReducer = (state = initialState, action) => {
                 totalUsersCount: action.totalUsersCount
             }
     
-
         default:
             return state;
     }
@@ -44,9 +42,9 @@ const friendsReducer = (state = initialState, action) => {
 
 export default friendsReducer;
 
+// Get the list of followed friends of the authorised user and handle the response
 export const getFollowedUsers = (pageNumber, pageSize) => async (dispatch) => {
     const data = await usersAPI.getFollowedUsers(pageNumber, pageSize)
-    console.log(data.items)
     dispatch(getFollowedUsersData(data.items))
     dispatch(setTotalCount(data.totalCount))
 }

@@ -17,24 +17,30 @@
   
 }
 
-.item {
+.navBtn {
+    width: calc(100% - 10px);
     margin: 5px;
-    padding: 5px;
+    padding: 3px;
     border: 2px solid rgb(86 58 112);
     border-radius: 5px;
+    background-color: rgb(185, 138, 230);
+    text-align: left;
+    font-size: 17px;
 }
 
 
-.item a {
+/* .item a {
     color: white;
     text-decoration: none;
+    width: 100%;
     
-}
+} */
 
-.item a:focus {
-    color: black;
+.active {
+    color: white;
 }
 
 .friends {
     width: 100%;
 }
+

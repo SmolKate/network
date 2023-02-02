@@ -1,14 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import User from './User';
 import s from './Users.module.css';
-
+import PagesNavigation from '../../../common/PagesNavigation/PagesNavigation';
 
 const Users = (props) => {
-   
-    return (<div className={s.usersContainer}>
-        {props.usersData.map( u => <User key={u.id} user={u} isAuth={props.isAuth} isFollowingInProgress={props.isFollowingInProgress} unfollow={props.unfollow} follow={props.follow} />)}
-    </div>)
+
+    const {usersData, getUsers, pageNumber, pageSize} = props
+
+    // Get portion of users from the server at the page loading
+    useEffect(() => { 
+        if (usersData.length === 0) {
+            getUsers (pageNumber, pageSize)
+        }
+    }, [usersData, getUsers, pageNumber, pageSize])
     
+    const onPageChange = (pageNumber) => { 
+        props.setPageNumber(pageNumber)
+        props.getUsers (pageNumber, props.pageSize)
+    }
+
+    // Create the list of users as the list of components
+    const users = props.usersData.map( u => 
+        <User key={u.id} user={u} isAuth={props.isAuth} 
+        isFollowingInProgress={props.isFollowingInProgress} 
+        unfollow={props.unfollow} follow={props.follow}/>)
+
+    return <div>
+        <div className={s.preloaderBlock}>
+            {props.isFetching ? <div>Loading...</div> : null}
+        </div>
+        <div className={s.pagesBlock}>
+            <PagesNavigation totalUsersCount={props.totalUsersCount} 
+                pageSize={props.pageSize} 
+                pageNumber={props.pageNumber} 
+                onPageChange={onPageChange}/>
+        </div>
+        <div className={s.usersContainer}>{users}</div>
+    </div>
 }
 
 export default Users;

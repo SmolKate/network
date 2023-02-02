@@ -4,7 +4,6 @@ import s from './LoginForm.module.css'
 
 
 const LoginForm = ({ errors, touched, status, ...props }) => {
-    console.log(props.captchaUrl)
     return (
             <Form className={s.form}>
                 <div>
@@ -27,9 +26,7 @@ const LoginForm = ({ errors, touched, status, ...props }) => {
                     <button type='submit' >Submit</button>
                 </div>
             </Form>
-        
-    )
-    
+    ) 
 }
 
 export default LoginForm;

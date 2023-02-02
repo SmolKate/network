@@ -1,12 +1,11 @@
 import './App.css';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
-import Dialogs from './components/Content/Dialogs/Dialogs';
 import { Route, Routes } from 'react-router-dom';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import UsersContainer from './components/Content/Users/UsersContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
-import Login from './components/Content/Login/Login';
+import LoginContainer from './components/Content/Login/LoginContainer';
 import { initialiseApp } from './redux/app-reducer';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -20,30 +19,32 @@ const App = ({initialiseApp, isInitialised}) => {
     initialiseApp()
   }, []);
 
+  // Show the loading page during app initialisation
+
   if (!isInitialised) {
     return <Preloader />
   }
+
+  // Show the main page, which consist of header, navbar and 
+  // content element that changes according to the route
+
   return (<div>
     <div className = 'background'>
       <img src={backPhoto}/>
     </div>
     <div className = 'app-wraper'>
-    
-      
       <HeaderContainer />
       <Navbar />
       <div className = 'app-wraper-content'>
-      <Routes>
-        
-        <Route path='/dialogs' element={<DialogsContainer/>} />
-        <Route path='/profile' element={<ProfileContainer />} />
-        <Route path='/profile/:userId' element={<ProfileContainer />} />
-        <Route path='/users' element={<UsersContainer />} />
-        <Route path='/dialogs/:chatId' element={<DialogsContainer />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/' element={<Login />} />
-        
-      </Routes>
+        <Routes>
+          <Route path='/dialogs' element={<DialogsContainer/>} />
+          <Route path='/profile' element={<ProfileContainer />} />
+          <Route path='/profile/:userId' element={<ProfileContainer />} />
+          <Route path='/users' element={<UsersContainer />} />
+          <Route path='/dialogs/:chatId' element={<DialogsContainer />} />
+          <Route path='/login' element={<LoginContainer />} />
+          <Route path='/' element={<LoginContainer />} />
+        </Routes>
       </div>
     </div>
     </div>

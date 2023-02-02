@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import s from './UserInfo.module.css';
 import Preloader from "../../../../common/Preloader/Preloader";
-import ProfileStatus from './ProfileStatus';
 import userPhoto from '../../../../assets/ava3.png';
 import JobPicture from '../../../../assets/lookingForAJob.jpeg';
 import ProfileDataForm from "./ProfileDataForm";
+import ProfileData from "./ProfileData";
 import { withFormik } from "formik";
 import * as Yup from 'yup'; 
 
+// Show user's data and form to change it
 
 const UserInfo = (props) => {
-    const [fileSelecting, setFileSelecting]=useState(false)
     const [hoverMode, setHoverMode]=useState(false)
     const [editMode, setEditMode]=useState(false)
 
@@ -19,28 +19,27 @@ const UserInfo = (props) => {
             <Preloader />
         </div>
     }
-
+    // Handler to save the file chosen as user avatar
     const onFileSelecting = (e) => {
         if (!!e.target.files[0]) {
             const file = e.target.files[0]
             props.updatePhoto(file)
-            // console.log(fileSelected)
         }
-        // setFileSelecting(false)
     }
 
+    // Display form to change user's data 
     const onEditBtnClick = () => {
         setEditMode(true)
     }
-
+    // Display button to change avatar when mouse points on picture 
     const handleMouseEnter = () => {
         setHoverMode(true)
     }
 
+    // Hide button for avatar changing when mouse leaves the picture 
     const handleMouseLeave = () => {
         setHoverMode(false)
     }
-
 
     return (
         <div className={s.description}>
@@ -72,37 +71,6 @@ const UserInfo = (props) => {
     )
 }
 
-const ProfileData = (props) => {
-    
-    return <div className={s.profileData}>
-            <div className={s.userNameStatus}>
-                {/* { !props.userId && <button onClick={props.onEditBtnClick}>Edit profile</button>} */}
-                    <div>
-                        {props.profile.fullName}
-                    </div>
-                    <ProfileStatus userId={props.userId} userAuthId={props.userAuthId} status={props.status} updateStatus={props.updateStatus}/>  
-            </div>
-            <div className={s.userInfo}>
-                <div className={s.aboutMe}>
-                    <b>About me</b>: {props.profile.aboutMe}
-                </div>
-                { props.profile.lookingForAJob && 
-                <div className={s.profSkills}>
-                    <b>My professional skills</b>: {props.profile.lookingForAJobDescription}
-                </div>}
-            </div>
-            
-            <div className={s.contacts}>
-                <b>Contacts</b>: {Object.keys(props.profile.contacts).map( key => {
-                    return props.profile.contacts[key] && <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]} />
-                })}
-            </div>
-    </div>
-}
-
-const Contact = ({contactTitle, contactValue}) => {
-    return <div className={s.contactItem}><b>{contactTitle}</b>: {contactValue}</div>
-}
 export default UserInfo;
 
 const ProfileDataFormFormik = withFormik ({
@@ -122,7 +90,6 @@ const ProfileDataFormFormik = withFormik ({
                 github: profile.contacts.github || '',
                 mainLink: profile.contacts.mainLink || '',
             }
-            
         }
     },
 
@@ -130,23 +97,10 @@ const ProfileDataFormFormik = withFormik ({
         fullName: Yup.string().max(20, 'Max length is 20 simbols.').required('Required'),
         lookingForAJobDescription: Yup.string().max(200, 'Max length is 200 simbols.'),
         aboutMe: Yup.string().max(200, 'Max length is 200 simbols.'),
-        // facebook: Yup.string().max(10, 'Max length is 10 simbols.').url(),
-        // website: Yup.string().max(10, 'Max length is 10 simbols.'),
-        // vk: Yup.string().max(10, 'Max length is 10 simbols.'),
-        // twitter: Yup.string().max(10, 'Max length is 10 simbols.'),
-        // istagram: Yup.string().max(10, 'Max length is 10 simbols.'),
-        // youtube: Yup.string().max(10, 'Max length is 10 simbols.'),
-        // github: Yup.string().max(10, 'Max length is 10 simbols.'),
-        // mainLink: Yup.string().max(10, 'Max length is 10 simbols.'),
-
     }),
 
     handleSubmit (values, {props, setStatus, setSubmitting, ...actions}) {
-        // setStatus('error')
-        // props.setEditMode(false)
         props.updateProfile(values, setStatus, props.setEditMode)
-        
-        
         setSubmitting(false)
     }
 })(ProfileDataForm)

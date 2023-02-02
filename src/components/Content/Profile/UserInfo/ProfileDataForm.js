@@ -1,10 +1,30 @@
 import { Form, Field } from "formik";
 import s from './UserInfo.module.css';
-import er from '../../../../common/error.module.css'
-
 
 const ProfileDataForm = ({ errors, touched, status, ...props }) => {
-    console.log(status)
+    
+    // Create the list of input forms for contacts
+    const contactForm = Object.keys(props.profile.contacts).map( key => {
+
+        // Find out if there is a error message from the server concerning this contact 
+        // and change this message to appropriate one in order to display it.
+        let newKey = key[0].toUpperCase() + key.slice(1);
+        const regex = new RegExp(`${newKey}`)
+        let message
+        if (status) {
+            message = status.filter(msg => msg.match(regex)).map( msg => msg.replace(/\((\w+)->(\w+)\)/, '')) }
+        
+        return <div key={key} className={ (!!message && message.length > 0) ? s.contactItem + ' ' + s.errorArea : s.contactItem}>
+                <div>
+                    <label htmlFor={key}><b>{key}</b>: </label>
+                </div>
+                <div>
+                    <Field name={'contacts.'+key} type='text' placeholder={key} />
+                    { !!message && message.length > 0 && <div className={s.errorMsg}>{message}</div>} 
+                </div>
+            </div>
+    })
+
     return (
         <Form className={s.profileData}>
             <div className={s.userInfo}>
@@ -35,32 +55,9 @@ const ProfileDataForm = ({ errors, touched, status, ...props }) => {
                     <Field name='lookingForAJobDescription' component='textarea' />
                     {errors.lookingForAJobDescription && <div className={s.errorMsg}>{errors.lookingForAJobDescription}</div>}
                 </div>
-                <div className={s.saveBtn}>
-                    <button type='submit'>Save</button>
-                </div>
+                <div className={s.saveBtn}><button type='submit'>Save</button></div>
             </div>
-            
-            <div className={s.contacts}>
-                <b>Contacts</b>: {Object.keys(props.profile.contacts).map( key => {
-                    let newKey = key[0].toUpperCase() + key.slice(1);
-                    const regex = new RegExp(`${newKey}`)
-                    let message
-                    if (status) {
-                        message = status.filter(msg => msg.match(regex)).map( msg => msg.replace(/\((\w+)->(\w+)\)/, '')) }
-                    console.log(message)
-                    return <div className={ (!!message && message.length > 0) ? s.contactItem + ' ' + s.errorArea : s.contactItem}>
-                            <div>
-                                <label htmlFor={key}><b>{key}</b>: </label>
-                            </div>
-                            <div>
-                                <Field key={key} name={'contacts.'+key} type='text' placeholder={key} />
-                                { !!message && message.length > 0 && <div className={s.errorMsg}>{message}</div>} 
-                            </div>
-                        </div>
-
-                })}
-            </div>
-            
+            <div className={s.contacts}><b>Contacts</b>: {contactForm}</div>
         </Form>
     )
 }

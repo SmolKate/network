@@ -5,9 +5,6 @@ import Like from '../../../../../assets/like.png'
 const PostElem = (props) => {
     return (
         <div className = {s.item}>
-            {/* <div className = {s.image}>
-                <img src='https://krasivosti.pro/uploads/posts/2021-07/1625891556_49-krasivosti-pro-p-kvadratnii-kot-koti-krasivo-foto-59.jpg'></img>
-            </div> */}
             <div className = {s.likesCount}>
                 <img src={Like}/>
                 {props.likesCount}

@@ -3,14 +3,10 @@ import { profileAPI } from "../api/api";
 const ADD_POST = 'profile/ADD-POST';
 const SET_PROFILE = 'profile/SET_PROFILE';
 const SET_STATUS = 'profile/SET_STATUS';
-const UPDATE_PHOTO_SUCCESS = 'UPDATE_PHOTO_SUCCESS'
-
 
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText})
 export const setProfile = (profile) => ({type: SET_PROFILE, profile})
 export const setStatus = (status) => ({type: SET_STATUS, status})
-// export const updatePhotoSuccess = (photos) => ({type: UPDATE_PHOTO_SUCCESS, photos})
-
 
 let initialState = {
     postsData: [
@@ -19,7 +15,6 @@ let initialState = {
         {id:3, message:'How are you?', likesCount:6},
         {id:4, message:'Hi, guys!', likesCount:54},
     ],
-    newPostText: 'ttt',
     profile: null,
     status: ""
 };
@@ -36,7 +31,6 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 postsData: [...state.postsData, newPost],
-                newPostText: ''
             };
         
         case SET_PROFILE:
@@ -50,31 +44,27 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status,
             };
-
-        // case UPDATE_PHOTO_SUCCESS:
-        //     return {
-        //         ...state,
-        //         profile: {...state.profile, photos: action.photos},
-        //     };
         
         default:
             return state;
-
     }
 }
 
 export default profileReducer;
 
+// Get user's profile data and save it in the state
 export const getProfile = (userId) => async (dispatch) => {
     const data = await profileAPI.getProfile(userId)
     dispatch(setProfile(data))    
 }
 
+// Get user's status and save it in the state
 export const getStatus = (userId) => async (dispatch) => {
     const data = await profileAPI.getStatus(userId)
     dispatch(setStatus(data))
 }
 
+// Set new status of the authorised user and get it back from the server
 export const updateStatus = (status) => async (dispatch) => {
     const data = await profileAPI.updateStatus(status)
     if (data.resultCode === 0) {
@@ -82,15 +72,16 @@ export const updateStatus = (status) => async (dispatch) => {
     }
 }
 
+// Set new avatar of the authorised user and get it back from the server
 export const updatePhoto = (file) => async (dispatch, getState) => {
     const userId = getState().auth.id
     const data = await profileAPI.updatePhoto(file)
     if (data.resultCode === 0) {
         dispatch(getProfile(userId))
-        // dispatch(updatePhotoSuccess(data.data.photos))
     }
 }
 
+// Set new profile data of the authorised user and get it back from the server
 export const updateProfile = (profile, setStatus, setEditMode) => async (dispatch, getState) => {
     const userId = getState().auth.id
     const data = await profileAPI.updateProfile(profile)

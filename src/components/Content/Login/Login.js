@@ -3,23 +3,17 @@ import LoginForm from './LoginForm';
 import { withFormik } from 'formik';
 import * as Yup from 'yup'; 
 import { connect } from 'react-redux';
-import { login, } from '../../../redux/auth-reducer';
+import { login } from '../../../redux/auth-reducer';
 import { Navigate } from 'react-router-dom';
 import s from './Login.module.css';
-import backPhoto from '../../../assets/forest.jpeg';
 
-let mapStateToProps = (state) => {
-    return {
-        isAuth : state.auth.isAuth,
-        captchaUrl: state.auth.captchaUrl
-    }
-}
+// Login form with validation at submiting. It could also show captcha if neseccary. 
+// User will be redirected to his/her profile at successful authentication.
 
 const Login = (props) => {
     
     return (
         <div>
-        {/* <img src={backPhoto}/> */}
         {props.isAuth && <Navigate to={"/profile"}/>}
             <div className={s.loginBox}>
                 <h1>Log in</h1>
@@ -27,10 +21,9 @@ const Login = (props) => {
             </div>    
         </div>
     )
-    
 }
 
-export default connect(mapStateToProps, {login})(Login);
+export default Login;
 
 const LoginFormFormik = withFormik ({
     mapPropsToValues ({email, password, rememberMe, captcha}) {

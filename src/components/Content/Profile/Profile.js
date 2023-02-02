@@ -6,17 +6,28 @@ import { useLocation, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
+// Display user's data and his/her posts
 
 const Profile = (props) => {
-    const location = useLocation();
-    const {userId} = useParams();
+
+    // reload Component at the url changing
+    const location = useLocation();   
+
+    // get user id from url to show profile of the other user (not authenticated)
+    const {userId} = useParams(); 
+    
     let {isAuthFetching, getProfile, getStatus, userAuthId} = props
     
+    // Get users data from server
     useEffect(() => { 
         if (isAuthFetching === false) {
+
+            // Get data of currently authenticated user
             if (!userId) {
                 getProfile(userAuthId)
                 getStatus(userAuthId)
+
+            // Get data of other user
             } else {
                 getProfile(userId)
                 getStatus(userId)

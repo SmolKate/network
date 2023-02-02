@@ -1,16 +1,20 @@
 import React from 'react';
 import s from './PagesNavigation.module.css';
 
+// Creating a bar of page numbers with limits from the left and right sides
 const PagesNavigation = (props) => {
-   
+
+    // calculat and round the total amount of pages and create an array of all page numbers
     let pagesCount = Math.ceil(props.totalUsersCount/props.pageSize);
     let pages = [];
     for (let i=1; i<=pagesCount ; i++) {
         pages.push(i);
     }
+
+    // show 9 page numbers in the bar in accordance to the current one (+/- 4)
     let curPage=props.pageNumber;
-    let curPageFirst=((curPage-5)<0) ? 0 : curPage-5;
-    let curPageLast=curPage+4;
+    let curPageFirst=((curPage-5)<0) ? 0 : curPage-5;       // first nubmber of the bar
+    let curPageLast=curPage+4;                              // last nubmber of the bar
     let slicedPages=pages.slice(curPageFirst, curPageLast)
     return (
         <div>
