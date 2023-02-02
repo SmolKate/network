@@ -1,11 +1,9 @@
 .head {
-    /* background-color: rgb(86 58 112); */
     background: linear-gradient(90deg, rgba(86, 58, 112,1) 10%, rgba(253,187,45,0.3) 100%);
     grid-area: h;
     width: 100vw;
     padding: 3px;
     height: 100%;
-    /* position: relative; */
 }
   
 .head img {

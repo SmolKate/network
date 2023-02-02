@@ -1,11 +1,3 @@
-/* .posts {
-    padding: 5px;
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-between;
-} */
-
 .posts {
     display: grid;
     grid-gap: 20px;

@@ -28,6 +28,7 @@ const ProfileDataForm = ({ errors, touched, status, ...props }) => {
     return (
         <Form className={s.profileData}>
             <div className={s.userInfo}>
+                <div className={s.saveBtn}><button type='submit'>Save</button></div>
                 <div className={s.userNameStatusForm + ' ' + (!!errors.fullName && s.errorArea)}>
                     <div>
                         <label htmlFor='fullName'><b>Full Name</b>: </label>
@@ -55,7 +56,6 @@ const ProfileDataForm = ({ errors, touched, status, ...props }) => {
                     <Field name='lookingForAJobDescription' component='textarea' />
                     {errors.lookingForAJobDescription && <div className={s.errorMsg}>{errors.lookingForAJobDescription}</div>}
                 </div>
-                <div className={s.saveBtn}><button type='submit'>Save</button></div>
             </div>
             <div className={s.contacts}><b>Contacts</b>: {contactForm}</div>
         </Form>

@@ -145,11 +145,7 @@
 
 .lookJobForm {
     display: inline-flex;
-    /* display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start; */
     white-space: nowrap;
-    /* vertical-align: middle; */
     padding-right: 10px;
     align-items: center;
     width: 200px; 
