@@ -1,6 +1,11 @@
+
+type ActionsType =  ReturnType<typeof addMessageActionCreator>
+
+type InitialStateType = typeof initialState
+
 const ADD_MESSAGE = 'dialogs/ADD-MESSAGE';
 
-export const addMessageActionCreator = (newMessage, chatId) => ({type: ADD_MESSAGE, newMessage, chatId})
+export const addMessageActionCreator = (newMessage: string, chatId: string) => ({type: ADD_MESSAGE, newMessage, chatId} as const)
 
 let initialState = {
     dialogsData: [
@@ -22,7 +27,7 @@ let initialState = {
       ],
 };
 
-const dialogsReducer = (state=initialState, action) => {
+const dialogsReducer = (state=initialState, action: ActionsType): InitialStateType => {
     
     switch (action.type) {
         case ADD_MESSAGE:

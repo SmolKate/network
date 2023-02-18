@@ -1,6 +1,5 @@
-import React from "react";
 import Profile from "./Profile";
-import { getProfile, updateStatus, getStatus, updatePhoto, updateProfile } from "../../../redux/profile-reducer";
+import { getProfile, updateStatus, getStatus, updatePhoto, updateProfile } from "../../../redux/profile-reducer.ts";
 import { connect } from 'react-redux';
 
 let mapStateToProps = (state) => {

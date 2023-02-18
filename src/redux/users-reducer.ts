@@ -1,7 +1,23 @@
-import { usersAPI } from "../api/api";
+import { usersAPI } from "../api/api.js";
 import { getFollowedUsers } from "./friends-reducer";
+import { UsersDataType } from "../types/types"
+import { RootState, AppDispatch } from './redux-store'
+import { ThunkAction } from "@reduxjs/toolkit";
 
-const FOLLOW = 'users/FOLLOW';
+type InitialStateType = typeof initialState
+
+export type ActionsType =  ReturnType<typeof followSuccess> |
+                    ReturnType<typeof unfollowSuccess> | 
+                    ReturnType<typeof setUsers> |
+                    ReturnType<typeof setTotalCount> |
+                    ReturnType<typeof setPageNumber> |
+                    ReturnType<typeof changeIsFetching> |
+                    ReturnType<typeof changeIsFollowingInProgress>
+
+
+export type ThunkType = ThunkAction<Promise<void>, RootState, unknown, ActionsType>
+
+const FOLLOW = 'users/FOLLOW'
 const UNFOLLOW = 'users/UNFOLLOW';
 const SET_USERS = 'users/SET_USERS';
 const SET_TOTAL_COUNT = 'users/SET_TOTAL_COUNT';
@@ -9,28 +25,27 @@ const SET_PAGE_NUMBER = 'users/SET_PAGE_NUMBER';
 const CHANGE_IS_FETCHING = 'users/CHANGE_IS_FETCHING';
 const CHANGE_IS_FOLLOWING_PROGRESS= 'users/CHANGE_IS_FOLLOWING_PROGRESS'
 
-export const followSuccess = (userId) => ({type: FOLLOW, userId});
-export const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId});
-export const setUsers = (usersData) => ({type: SET_USERS, usersData});
-export const setTotalCount = (totalUsersCount) => ({type: SET_TOTAL_COUNT, totalUsersCount});
-export const setPageNumber = (pageNumber) => ({type: SET_PAGE_NUMBER, pageNumber})
-export const changeIsFetching = (isFetching) => ({type: CHANGE_IS_FETCHING, isFetching})
+export const followSuccess = (userId: number) => ({type: FOLLOW, userId} as const);
+export const unfollowSuccess = (userId: number) => ({type: UNFOLLOW, userId} as const);
+export const setUsers = (usersData: Array<UsersDataType>) => ({type: SET_USERS, usersData} as const);
+export const setTotalCount = (totalUsersCount: number) => ({type: SET_TOTAL_COUNT, totalUsersCount} as const);
+export const setPageNumber = (pageNumber: number) => ({type: SET_PAGE_NUMBER, pageNumber} as const)
+export const changeIsFetching = (isFetching: boolean) => ({type: CHANGE_IS_FETCHING, isFetching} as const)
 
 // if isFetching is true - add the user to the isFollowingInProgress list; 
 // if isFetching is false - delet the user from the isFollowingInProgress list;
-export const changeIsFollowingInProgress = (isFetching, userId) => ({type: CHANGE_IS_FOLLOWING_PROGRESS, isFetching, userId})
+export const changeIsFollowingInProgress = (isFetching: boolean, userId: number) => ({type: CHANGE_IS_FOLLOWING_PROGRESS, isFetching, userId} as const)
 
 let initialState = {
-    usersData: [],
+    usersData: [] as Array<UsersDataType>,
     totalUsersCount: 40,
     pageSize: 10,
     pageNumber: 1,
     isFetching: true,
-    isFollowingInProgress: [] // array what contains all users with follow/unfollow process in progress
-
+    isFollowingInProgress: [] as Array<number>// array what contains all users with follow/unfollow process in progress
 };
 
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action: ActionsType): InitialStateType => {
     
     switch (action.type) {
         case FOLLOW:
@@ -92,7 +107,7 @@ const usersReducer = (state = initialState, action) => {
 export default usersReducer;
 
 // Get a portion of users from the server and save data
-export const getUsers = (pageNumber, pageSize) => async (dispatch) => {
+export const getUsers = (pageNumber: number, pageSize: number) => async (dispatch: AppDispatch, getState: () => RootState ) => {
     dispatch(changeIsFetching(true))
     const data = await usersAPI.getUsers(pageNumber, pageSize)
     dispatch(changeIsFetching(false))
@@ -101,7 +116,7 @@ export const getUsers = (pageNumber, pageSize) => async (dispatch) => {
 }
 
 // Set the user as followed and put this to the server
-export const follow = (userId) => async (dispatch) => {
+export const follow = (userId: number): ThunkType => async (dispatch) => {
     dispatch(changeIsFollowingInProgress(true, userId));
     const data = await usersAPI.setFolow(userId)
     if (data.resultCode === 0) {
@@ -112,7 +127,7 @@ export const follow = (userId) => async (dispatch) => {
 }
 
 // Set the user as unfollowed and put this to the server
-export const unfollow = (userId) => async (dispatch) => {
+export const unfollow = (userId: number): ThunkType => async (dispatch) => {
     dispatch(changeIsFollowingInProgress(true, userId));
     const data = await usersAPI.setUnfolow(userId)
     if (data.resultCode === 0) {

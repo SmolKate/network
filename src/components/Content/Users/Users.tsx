@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import User from './User';
+import React, { FC, useEffect } from 'react';
+import User from './User.js';
 import s from './Users.module.css';
 import PagesNavigation from '../../../common/PagesNavigation/PagesNavigation';
+import type { PropsFromRedux } from './UsersContainer'
 
-const Users = (props) => {
+const Users: FC<PropsFromRedux> = (props) => {
 
     const {usersData, getUsers, pageNumber, pageSize} = props
 
@@ -14,9 +15,9 @@ const Users = (props) => {
         }
     }, [usersData, getUsers, pageNumber, pageSize])
     
-    const onPageChange = (pageNumber) => { 
+    const onPageChange = (pageNumber: number) => { 
         props.setPageNumber(pageNumber)
-        props.getUsers (pageNumber, props.pageSize)
+        props.getUsers (pageNumber, pageSize)
     }
 
     // Create the list of users as the list of components

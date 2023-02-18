@@ -1,8 +1,8 @@
 import Friends from "./Friends";
 import { connect } from "react-redux";
-import { getFollowedUsers, setPageNumber } from "../../../redux/friends-reducer";
+import { getFollowedUsers, setPageNumber } from "../../../redux/friends-reducer.tsx";
 import { getIsFollowingInProgress } from "../../../redux/users-selectors";
-import { unfollow } from "../../../redux/users-reducer";
+import { unfollow } from "../../../redux/users-reducer.ts";
 import { useEffect } from "react";
 import PagesNavigation from "../../../common/PagesNavigation/PagesNavigation";
 import s from './Friends.module.css';
@@ -17,7 +17,7 @@ const FriendsContainer = (props) => {
         if (friendsData.length === 0 ) {
             getFollowedUsers()
         }
-    }, [getFollowedUsers, isAuth])
+    }, [getFollowedUsers, isAuth, friendsData.length])
     
     // Get new portion of followed users and pass the new page number to the state
 

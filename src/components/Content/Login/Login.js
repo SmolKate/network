@@ -2,8 +2,6 @@ import React from 'react'
 import LoginForm from './LoginForm';
 import { withFormik } from 'formik';
 import * as Yup from 'yup'; 
-import { connect } from 'react-redux';
-import { login } from '../../../redux/auth-reducer';
 import { Navigate } from 'react-router-dom';
 import s from './Login.module.css';
 
